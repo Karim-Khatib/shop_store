@@ -1,5 +1,4 @@
 "use client";
-
 import React from 'react'
 import {  NaveBarItem } from './NavBarData';
 import {  usePathname } from 'next/navigation';
