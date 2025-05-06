@@ -1,7 +1,7 @@
 import React from 'react'
-import logo from "./assets/logo.png";
+import logo from "../assets/logo.png";
 import Image from 'next/image';
-import { getCurrentPathName } from './navbar/NavBarComponent';
+import { getCurrentPathName } from '../navbar/NavBarComponent';
 async function NotFoundPage() {
     const pathName =await getCurrentPathName();
   return (

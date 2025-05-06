@@ -1,5 +1,5 @@
 import React from 'react'
-import SideNavComponent from '../navbar/SubNavComponent';
+import SideNavComponent from '../../navbar/SubNavComponent';
 
 export default async function UsersDashboard({
     children,
