@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import NavBarComponent  from "./navbar/NavBarComponent";
-import "./globals.css";
-import person from "./assets/person.svg";
-import gift from "./assets/gift.svg";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,25 +26,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex justify-start">
-        <NavBarComponent item={{
-          dashboardTitle: "Dashboard",
-          items:[
-            {
-              title:"Users",
-              link:"/users",
-              icon:person,
-              
-            },
-            {
-              title:"Gift",
-              link:"/gift",
-              icon:gift,
-            }
-          ]
-        }} />
         {children}
-        </div>
       </body>
     </html>
   );
