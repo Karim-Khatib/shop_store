@@ -3,8 +3,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
 @theme inline {
- 
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -42,13 +43,79 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Custom Colors */
+
+  /* Neutral Colors */
+  --color-neutral-1000: var(--color-neutral-1000);
+  --color-neutral-900: var(--color-neutral-900);
+  --color-neutral-800: var(--color-neutral-800);
+  --color-neutral-700: var(--color-neutral-700);
+  --color-neutral-600: var(--color-neutral-600);
+  --color-neutral-500: var(--color-neutral-500);
+  --color-neutral-400: var(--color-neutral-400);
+  --color-neutral-300: var(--color-neutral-300);
+  --color-neutral-200: var(--color-neutral-200);
+  --color-neutral-150: var(--color-neutral-150);
+  --color-neutral-100: var(--color-neutral-100);
+  --color-neutral-0: var(--color-neutral-0);
+  
+  /* Primary Colors */
+ 
+--color-primary-700: var(--color-primary-700);
+--color-primary-600: var(--color-primary-600);
+--color-primary-500: var(--color-primary-500);
+--color-primary-200: var(--color-primary-200);
+--color-primary-100: var(--color-primary-100);
+
+// ... existing code ...
+/* Success Colors */
+--color-success-700: var(--color-success-700);
+--color-success-600: var(--color-success-600);
+--color-success-500: var(--color-success-500);
+--color-success-200: var(--color-success-200);
+--color-success-100: var(--color-success-100);
+
+/* Danger Colors */
+--color-danger-700: var(--color-danger-700);
+--color-danger-600: var(--color-danger-600);
+--color-danger-500: var(--color-danger-500);
+--color-danger-200: var(--color-danger-200);
+--color-danger-100: var(--color-danger-100);
+
+/* Warning Colors */
+--color-warning-700: var(--color-warning-700);
+--color-warning-600: var(--color-warning-600);
+--color-warning-500: var(--color-warning-500);
+--color-warning-200: var(--color-warning-200);
+--color-warning-100: var(--color-warning-100);
+
+/* Secondary Colors */
+--color-secondary-700: var(--color-secondary-700);
+--color-secondary-600: var(--color-secondary-600);
+--color-secondary-500: var(--color-secondary-500);
+--color-secondary-200: var(--color-secondary-200);
+--color-secondary-100: var(--color-secondary-100);
+
+/* Alternative Colors */
+--color-alternative-700: var(--color-alternative-700);
+--color-alternative-600: var(--color-alternative-600);
+--color-alternative-500: var(--color-alternative-500);
+--color-alternative-200: var(--color-alternative-200);
+--color-alternative-100: var(--color-alternative-100);
+
+/* Primary Button Colors */
+--color-button-neutral-0: var(--color-button-neutral-0);
+--color-button-primary-600: var(--color-button-primary-600);
+--color-button-primary-500: var(--color-button-primary-500);
+
+
+
 }
 
 :root {
 
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -78,6 +145,70 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+    /* Neutral Colors */
+    --color-neutral-1000: #181826;
+    --color-neutral-900: #212134;
+    --color-neutral-800: #32324D;
+    --color-neutral-700: #4A4A6A;
+    --color-neutral-600: #666687;
+    --color-neutral-500: #8E8EA9;
+    --color-neutral-400: #A5A5BA;
+    --color-neutral-300: #C0C0CF;
+    --color-neutral-200: #DCDCE4;
+    --color-neutral-150: #EAEAEF;
+    --color-neutral-100: #F6F6F9;
+    --color-neutral-0: #FFFFFF;
+
+    /* Primary Colors */
+    --color-primary-700: #001F3D;
+    --color-primary-600: #002E5D;
+    --color-primary-500: #0747A6;
+    --color-primary-200: #A2C5FF;
+    --color-primary-100: #D9E5FF;
+
+    /* Success Colors */
+    --color-success-700: #00856C;
+    --color-success-600: #00A37C;
+    --color-success-500: #26A69A;
+    --color-success-200: #B2DFDB;
+    --color-success-100: #E0F2F1;
+
+    /* Danger Colors */
+    --color-danger-700: #FF5A5F;
+    --color-danger-600: #FF6B6E;
+    --color-danger-500: #FF7378;
+    --color-danger-200: #FFB2B2;
+    --color-danger-100: #FFE3E3;
+
+    /* Warning Colors */
+    --color-warning-700: #6B3A00;
+    --color-warning-600: #8E5000;
+    --color-warning-500: #BF6B00;
+    --color-warning-200: #FFCC80;
+    --color-warning-100: #FFE0B2;
+
+    /* Secondary Colors */
+    --color-secondary-700: #FF8A00;
+    --color-secondary-600: #FFAB00;
+    --color-secondary-500: #FFB800;
+    --color-secondary-200: #FFE082;
+    --color-secondary-100: #FFF3E0;
+
+    /* Alternative Colors */
+    --color-alternative-700: #5E35B1;
+    --color-alternative-600: #6D1B7B;
+    --color-alternative-500: #9C27B0;
+    --color-alternative-200: #E1BEE7;
+    --color-alternative-100: #F3E5F5;
+
+    /* Primary Button Colors */
+    --color-button-neutral-0: #FFFFFF;
+    --color-button-primary-600: #002E5D;
+    --color-button-primary-500: #0747A6;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+
 }
 
 .dark {
@@ -112,6 +243,68 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+    /* Neutral Colors */
+    --color-neutral-1000: #FFFFFF;
+    --color-neutral-900: #FFFFFF;
+    --color-neutral-800: #FFFFFF;
+    --color-neutral-700: #EAEAEF;
+    --color-neutral-600: #A5A5BA;
+    --color-neutral-500: #C0C0CF;
+    --color-neutral-400: #A5A5BA;
+    --color-neutral-300: #666687;
+    --color-neutral-200: #4A4A6A;
+    --color-neutral-150: #32324D;
+    --color-neutral-100: #181826;
+    --color-neutral-0: #212134;
+
+    /* Primary Colors */
+    --color-primary-700: #9FB6D0;
+    --color-primary-600: #7388A0;
+    --color-primary-500: #2C3E50;
+    --color-primary-200: #6B8EAE;
+    --color-primary-100: #A9CCE3;
+
+    /* Success Colors */
+    --color-success-700: #1E8449;
+    --color-success-600: #27AE60;
+    --color-success-500: #2ECC71;
+    --color-success-200: #ABEBC6;
+    --color-success-100: #E8F8F5;
+
+    /* Danger Colors */
+    --color-danger-700: #E74C3C;
+    --color-danger-600: #FF5A4C;
+    --color-danger-500: #FF665A;
+    --color-danger-200: #FFB282;
+    --color-danger-100: #FFE3E3;
+
+    /* Warning Colors */
+    --color-warning-700: #6B3A00;
+    --color-warning-600: #8E5000;
+    --color-warning-500: #BF6B00;
+    --color-warning-200: #FFCC80;
+    --color-warning-100: #FFE0B2;
+
+    /* Secondary Colors */
+    --color-secondary-700: #FF8B00;
+    --color-secondary-600: #FFC533;
+    --color-secondary-500: #FFD466;
+    --color-secondary-200: #FFE0B3;
+    --color-secondary-100: #FFF8E1;
+
+    /* Alternative Colors */
+    --color-alternative-700: #7C4DFF;
+    --color-alternative-600: #5D30C5;
+    --color-alternative-500: #8E44AD;
+    --color-alternative-200: #D7BDE2;
+    --color-alternative-100: #F4ECF7;
+
+       /* Primary Button Colors */
+    --color-button-neutral-0: #FFFFFF;
+    --color-button-primary-600: #7388A0;
+    --color-button-primary-500: #2C3E50;
+
 }
 
 @layer base {
