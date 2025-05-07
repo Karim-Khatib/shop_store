@@ -1,9 +1,10 @@
+"use client"
 import React from 'react'
 import logo from "../assets/logo.png";
 import Image from 'next/image';
-import { getCurrentPathName } from '../navbar/NavBarComponent';
-async function NotFoundPage() {
-    const pathName =await getCurrentPathName();
+import { usePathname } from 'next/navigation';
+ function NotFoundPage() {
+  const pathName = usePathname();
   return (
     <div className='w-full h-screen flex justify-center items-center bg-gray-50'>
         <div className='flex flex-col justify-center items-center'>
