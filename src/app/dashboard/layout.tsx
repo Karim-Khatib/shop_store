@@ -1,20 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import person from "../assets/person.svg";
-import gift from "../assets/gift.svg";
+import person from "@/assets/person.svg";
+import gift from "@/assets/gift.svg";
 import NavBarComponent from "@/navbar/NavBarComponent";
+import { RoutesName } from "@/lib/constant";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,30 +17,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex justify-start">
+    <div className="flex flex-row w-screen h-screen">
         <NavBarComponent item={{
           dashboardTitle: "Dashboard",
           items:[
             {
               title:"Users",
-              link:"/users",
+              link:RoutesName.USERS,
               icon:person,
               
             },
             {
               title:"Gift",
-              link:"/gift",
+              link:RoutesName.GIFTS,
               icon:gift,
             }
           ]
         }} />
         {children}
-        </div>
-      </body>
-    </html>
+     
+          </div>
   );
 }

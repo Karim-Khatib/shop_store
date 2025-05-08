@@ -1,12 +1,14 @@
 import mongoose, { model, models } from 'mongoose';
-interface UserI extends mongoose.Document  {
-    name: string;
+export interface UserI extends mongoose.Document  {
+    fullName: string;
     email: string;
     password: string;
+    imageUrl?:string;
+    birthDay: Date;
     createdAt: Date;
 }
 const  UserSchema= new mongoose.Schema<UserI>({
-name:{
+fullName:{
     type:String,
     required:true,
 },
@@ -21,6 +23,17 @@ password:{
     required:true,
 
 },
+imageUrl:{
+    type:String,
+    required:false,
+},
+birthDay:{
+    type:Date,
+    required:true,
+    max:new Date(),
+
+},
+
 
 })
 export const User = models.User || model<UserI>('User', UserSchema);

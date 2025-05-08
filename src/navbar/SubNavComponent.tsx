@@ -9,14 +9,17 @@ export default  function SideNavComponent({
   item,
 } :{item?:NavBarData}) {
   return (
-    <div className='w-3xs border-e-2  bg-[#F6F6F9] border-[#DCDCE4] h-full'>
-      {HeaderSideNave(item)}
+    <div className='w-3xs border-e-2 w-max-3xs w-min-3xs bg-[#F6F6F9] border-[#DCDCE4] h-full'>
+      <HeaderSideNave item={item}/>
       {item?.items?.map((item) => <SubNaveListTileComponent key={item.link || item.title} item={item}/>)}
       
     </div>
   )
 }
-const HeaderSideNave=(item:NavBarData|undefined)=> (<div className='ps-4 pt-6 pe-6 h-16  mb-4'>
+interface HeaderSideNaveProps{
+  item:NavBarData|undefined;
+} 
+const HeaderSideNave=({item}:HeaderSideNaveProps)=> (<div className='ps-4 pt-6 pe-6 h-16  mb-4'>
   <div className='flex flex-row justify-between items-center'>
     <h1 className='text-lg'>
     {item?.dashboardTitle||"Dashboard"}
