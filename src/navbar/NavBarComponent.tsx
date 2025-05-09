@@ -12,7 +12,7 @@ import UserEmailText from "./UserEmailText";
 // import { headers } from "next/headers";
 export default async function NavBarComponent({ item }: { item?: NavBarData }) {
   return (
-    <div className="flex flex-col w-max-3xs w-min-3xs w-3xs h-screen bg-white-200 shadow-lg">
+    <div className="flex-none  flex flex-col w-max-3xs w-min-3xs w-3xs  bg-white-200 shadow-lg flex-shrink-0">
       {header(item)}
       {divider}
       <div className="flex-1 w-full overflow-y-auto ps-3.5 pe-4 pt-4 pb-4">
@@ -21,7 +21,7 @@ export default async function NavBarComponent({ item }: { item?: NavBarData }) {
         ))}
       </div>
       {divider}
-      <div className="h-20 w-full flex flex-row items-center space-x-0.5">
+      <div className="h-20 w-full flex flex-row items-center justify-between space-x-0.5">
         <UserEmailText />
         <LogOutButton />
       </div>

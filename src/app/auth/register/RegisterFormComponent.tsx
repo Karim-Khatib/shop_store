@@ -17,7 +17,16 @@ interface RegisterFormData {
   confirmPassword: string;
   image?: File;
 }
-export default function RegisterFormComponent() {
+interface RegisterFormProps {
+  className?: string;
+  isFromAdmin: boolean;
+  onCreated?: () => void;
+}
+export default function RegisterFormComponent({
+  className,
+  isFromAdmin = false,
+  onCreated,
+}: RegisterFormProps) {
   const [formData, setFormData] = React.useState<RegisterFormData>({
     fullName: "",
     email: "",
@@ -36,9 +45,16 @@ export default function RegisterFormComponent() {
     });
   }, []);
   const [state, action, isPending] = useActionState(
-    registerFormAction,
+    (prevState: unknown, formData: FormData) => {
+      return registerFormAction(prevState, formData, isFromAdmin);
+    },
     undefined
   );
+  useEffect(() => {
+    if (state?.success == true && onCreated) {
+      onCreated();
+    }
+  }, [state, onCreated]);
 
   useEffect(() => {
     setFormData((f) => {
@@ -48,10 +64,10 @@ export default function RegisterFormComponent() {
       };
     });
   }, [state]);
- 
+
   return (
     <form action={action}>
-      <div className="w-full flex flex-col gap-4">
+      <div className={`w-full flex flex-col gap-4 ${className}`}>
         <UserProfilePictureComponent
           name="image"
           onChange={onChange}
@@ -126,14 +142,16 @@ export default function RegisterFormComponent() {
           <DangerText text={state?.errors._form}></DangerText>
         )}
         <Button disabled={isPending}>
-          {isPending ? "Loading" : "Register"}
+          {isPending ? "Loading" : isFromAdmin == true ? "Create" : "Register"}
         </Button>
-        <p className="text-xs mt-0.5">
-          Do you have account?
-          <a href={RoutesName.LOGIN}>
-            <span className="text-blue-600">Login In</span>
-          </a>
-        </p>
+        {isFromAdmin == false && (
+          <p className="text-xs mt-0.5">
+            Do you have account?
+            <a href={RoutesName.LOGIN}>
+              <span className="text-blue-600">Login In</span>
+            </a>
+          </p>
+        )}
       </div>
     </form>
   );

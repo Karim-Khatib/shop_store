@@ -36,9 +36,7 @@ export default function LoginForm() {
         },
       });
     }
-    return () => {
-      
-    };
+    return () => {};
   }, [state]);
 
   return (
@@ -56,7 +54,7 @@ export default function LoginForm() {
         <Spacing />
         <Spacing />
         {state?.errors?._form && <DangerText text={state.errors._form} />}
-        <Button disabled={isPending}>{isPending ? "Loading" : "Login"}</Button>
+        <Button  disabled={isPending}>{isPending ? "Loading" : "Login"}</Button>
         <p className="text-xs mt-0.5">
           Don’t have an account?
           <a href={RoutesName.REGISTER}>

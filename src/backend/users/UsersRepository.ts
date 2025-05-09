@@ -1,9 +1,9 @@
 import { ErrorHandler, ErrorResponse } from "../mongodb/ErrorHandler";
-import { User } from "../mongodb/models/Users";
+import { User, UserI } from "../mongodb/models/Users";
 import { connectDB } from "../mongodb/MongoDbProvider";
-
+import { UserInterface } from "./UserInterFace";
 interface UserResponse {
-  data?: typeof User | (typeof User)[];
+  data?: UserInterface | UserInterface[];
   success: boolean;
   error?: ErrorResponse;
 }
@@ -11,10 +11,18 @@ export async function getAllUsers(limit?: number): Promise<UserResponse> {
   try {
     limit ??= 100;
     await connectDB();
-    const users = await User.find({}).limit(limit);
+    const users = await User.find<UserI>({}).limit(limit);
     return {
       success: true,
-      data: users,
+      data: users.map((user) => {
+        return {
+          id: user._id!.toString(),
+          fullName: user.fullName,
+          email: user.email,
+          birthDay: user.birthDay,
+          imageUrl: user.imageUrl,
+        };
+      }),
     };
   } catch (error) {
     return {
@@ -23,21 +31,69 @@ export async function getAllUsers(limit?: number): Promise<UserResponse> {
     };
   }
 }
-
-export async function getUserById(id: string): Promise<UserResponse> {
+export async function getUserPagination(
+  page: number = 1,
+  pageSize: number = 10,
+  search?: string
+): Promise<{
+  data: UserInterface[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}> {
   try {
     await connectDB();
-    const user = await User.findById(id);
-    if (!user) throw new Error("User not found");
+    if (pageSize == 0) {
+      pageSize = 10;
+    }
+    if (page == 0) {
+      page = 1;
+    }
+    const skip = (page - 1) * pageSize;
+
+    const query = (search &&search.trim().length!=0) 
+      ? {
+          $or: [
+            { email: { $regex: search, $options: 'i' } },
+            { fullName: { $regex: search, $options: 'i' } }
+          ]
+        }
+      : {};
+
+    const [users, total] = await Promise.all([
+      User.find<UserI>(query).sort({ createdAt: -1 }).skip(skip).limit(pageSize),
+      search ? User.countDocuments(query) : User.countDocuments(),
+    ]);
+
     return {
-      success: true,
-      data: user,
+      data: users.map((user) => ({
+        id: user._id!.toString(),
+        fullName: user.fullName,
+        email: user.email,
+        birthDay: user.birthDay,
+        imageUrl: user.imageUrl,
+      })),
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
     };
   } catch (error) {
-    return {
-      success: false,
-      error: ErrorHandler(error),
-    };
+    throw error;
+  }
+}
+
+export async function getUserById(id: string) {
+  try {
+    await connectDB();
+    return await User.findById<UserI>(id);
+  } catch (error) {
+    throw error;
+    // return {
+    //   success: false,
+    //   error: ErrorHandler(error),
+    // };
   }
 }
 
@@ -138,8 +194,7 @@ export async function getUserByEmailAndPassword(
     if (!user) {
       return null;
     }
-    console.log({ user: user ,password:password});
-    
+
     // Then compare the encrypted passwords
     if (user.password === password) {
       return user;

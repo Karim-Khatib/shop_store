@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
+import { ModeToggle } from "@/components/ui/ModeToggle";
 const SeventyFont = localFont({
   src: [
     {
@@ -45,7 +46,7 @@ export default function RootLayout({
           storageKey="theme"
           disableTransitionOnChange
         >
-          {/* <ModeToggle /> */}
+          <ModeToggle />
           <main>{children}</main>
           <Toaster />
         </ThemeProvider>

@@ -2,13 +2,15 @@
 import { RoutesName } from "@/lib/constant";
 import { redirect, RedirectType } from "next/navigation";
 import { z } from "zod";
-import { clearSession, setSession } from "./Session";
+import { clearSession, getSession, setSession } from "./Session";
 import {
   createUser,
   getUserByEmail,
+  getUserById,
 } from "../users/UsersRepository";
 import CryptoJS from "crypto-js";
 import { uploadFileAndGetUrl } from "../supabase/SupabaseStorage";
+import { UserInterface } from "../users/UserInterFace";
 interface LoginResponse {
   success: boolean;
   message: string;
@@ -72,14 +74,14 @@ export default async function loginViaEmail(
       const currentPass=await decryptPassword(user.password);
    
       if(password!==currentPass){
-        throw Error("warning: invalid email or password")
+        throw Error("warning: invalid email or password",{cause:"1995"})
       }
 
       await setSession({
-        user:user._id.toString(),
+        userId:user._id.toString(),
       });
     } catch (e) {
-      if (e instanceof Error) {
+      if (e instanceof Error && e.cause==="1995") {
         return {
           success: false,
           message: e.message,
@@ -124,7 +126,8 @@ async function encryptPassword(data: string): Promise<string> {
 
 export async function registerFormAction(
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
+  isFromAdmin: boolean ,
 ): Promise<LoginResponse | undefined> {
   const formObject = Object.fromEntries(formData);
   const image = formData.get("image") as File;
@@ -146,7 +149,7 @@ export async function registerFormAction(
     const userExists = await getUserByEmail(email);
 
     if (userExists) {
-      throw Error("there is an account with this email");
+      throw Error("there is an account with this email",{cause:"1995"});
     }
 
     let imageUrl = undefined;
@@ -164,13 +167,14 @@ export async function registerFormAction(
     });
    
 
-    
-    await setSession({
-      user: user._id.toString(),
-    });
+    if(!isFromAdmin){
+      await setSession({
+        userId: user._id.toString(),
+      });
+    }
     isAllSuccess = true;
   } catch (e) {
-    if (e instanceof Error) {
+    if (e instanceof Error && e.cause==="1995") {
       return {
         success: false,
         message: "Register failed",
@@ -188,7 +192,37 @@ export async function registerFormAction(
       };
     }
   }
-  if (isAllSuccess) {
+  if (isAllSuccess && !isFromAdmin) {
     redirect(RoutesName.ACTIVE_USERS);
+  }else{
+    return {
+      success: true,
+      message: "Register success",
+      
+    }
   }
+}
+
+export async function getCurrentUser():Promise<UserInterface|null> {
+  const session=await getSession();
+
+  if(!session || !session.userId ){
+    
+    return null;
+  }
+  const currentUserId=session.userId;
+  
+  const currentUser=await getUserById(currentUserId);
+ 
+  if(!currentUser){
+    return null;
+  }
+  return {
+    birthDay:currentUser.birthDay,
+    email:currentUser.email,
+    id:currentUser!._id!.toString(),
+    fullName:currentUser.fullName,
+    imageUrl:currentUser.imageUrl
+  }
+  
 }

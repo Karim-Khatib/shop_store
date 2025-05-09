@@ -17,9 +17,9 @@ export default function SubNaveListTileComponent({item}:{item?:NaveBarItem}) {
     }
     return (
     <Link key={item?.link||item?.title} href={item?.link??""}>
-    <div className={`pt-2 pb-2 ps-4 h-8 w-full flex flex-row items-center ${isSelected?"bg-[#D9E5FF] border-s-2 border-s-[#002E5D]":""}`}>
+    <div className={`pt-2 pb-2 ps-4 h-8 w-full flex flex-row items-center ${isSelected?"bg-[#D9E5FF] border-s-2 border-s-primary-600":""}`}>
       <FaCircle size={5}  color='#666687'/>
-    <h1 className='text-sm text-[#979797] ms-3'>{item?.title}</h1></div>
+    <h1 className={`text-sm ${isSelected?"text-primary-600":"text-[#979797]"}  ms-3`}>{item?.title}</h1></div>
     </Link>
     );
 }

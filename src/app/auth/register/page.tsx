@@ -4,7 +4,7 @@ import RegisterFormComponent from "./RegisterFormComponent";
 export default function Register() {
   return (
     <div className="w-full">
-      <RegisterFormComponent />
+      <RegisterFormComponent isFromAdmin={false} />
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export const revalidate = 60;
 export async function GET() {
   try {
-
     const userResponse = await getUserByEmail("asdasdas");
     return NextResponse.json(userResponse, { status: 200 });
   } catch (e) {
@@ -17,7 +16,6 @@ export async function GET() {
 }
 export async function POST() {
   try {
-  
     await connectDB(); //
     const user = await User.create({
       name: "test",
@@ -32,3 +30,4 @@ export async function POST() {
     );
   }
 }
+export const runtime = "nodejs"; // Add this line

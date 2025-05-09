@@ -20,7 +20,7 @@ export async function uploadFileAndGetUrl(file: File, bucketName: string = 'user
 
         return publicUrl;
     } catch (error) {
-        console.error('Error uploading file:', error);
+     
         throw error;
     }
 }

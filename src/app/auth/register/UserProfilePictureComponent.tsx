@@ -77,7 +77,6 @@ export default function UserProfilePictureComponent({
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-
   return (
     <div className="flex flex-col items-center gap-4 mb-6">
       <Avatar className="w-32 h-32 border-2">
