@@ -89,7 +89,7 @@ function PaginationNext({
   return (
     <PaginationLink
       aria-label="Go to next page"
-      size="default"
+      size="icon"
       className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
       {...props}
     >
