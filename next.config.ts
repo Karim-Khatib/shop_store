@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   images: {
   //  remotePatterns:[new URL("https://biovthdsobsjaasqqeak.supabase.co")],
     domains: ["biovthdsobsjaasqqeak.supabase.co"],
+        unoptimized: true,
+
   },
   //TODO: Keep this for future use
   

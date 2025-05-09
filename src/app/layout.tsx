@@ -5,21 +5,21 @@ import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import { ModeToggle } from "@/components/ui/ModeToggle";
-// const SeventyFont = localFont({
-//   src: [
-//     {
-//       path: "../fonts/SeventyFont.ttf",
-//       weight: "400",
-//       style: "normal",
-//     },
-//   ],
-//   preload: false,
-// });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const SeventyFont = localFont({
+  src: [
+    {
+      path: "../fonts/SeventyFont.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  preload: false,
 });
+
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
 // const geistMono = Geist_Mono({
 //   variable: "--font-geist-mono",
@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className}`}>
+      <body className={`${SeventyFont.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
