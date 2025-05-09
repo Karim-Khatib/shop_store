@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-<<<<<<< HEAD:src/app/layout.tsx
 
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
@@ -15,18 +14,6 @@ const SeventyFont = localFont({
     },
   ],
   preload: false,
-=======
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import person from "../assets/person.svg";
-import gift from "../assets/gift.svg";
-import NavBarComponent from "@/navbar/NavBarComponent";
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
->>>>>>> 3b54f21d62a4d3a5ae1f09d685b143f0c7ef776a:src/app/home/layout.tsx
 });
 
 // const geistSans = Geist({
