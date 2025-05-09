@@ -36,7 +36,6 @@ const buttonVariants = cva(
       variant: "primary",
       size: "normal",
 
-      size: "normal",
     },
   }
 )
