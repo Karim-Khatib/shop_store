@@ -4,7 +4,7 @@ export interface ErrorResponse {
     message: string | string[];
 }
 export function ErrorHandler(error: unknown):ErrorResponse {
-    console.error({error:error});
+   
     if (error instanceof Error) {
         return {
             code: 500,

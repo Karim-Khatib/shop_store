@@ -1,26 +1,42 @@
-import mongoose, { model, models } from 'mongoose';
-interface UserI extends mongoose.Document  {
-    name: string;
-    email: string;
-    password: string;
-    createdAt: Date;
+import mongoose from "mongoose";
+export interface UserI extends mongoose.Document {
+  fullName: string;
+  email: string;
+  password: string;
+  imageUrl?: string;
+  birthDay: Date;
+  createdAt: Date;
 }
-const  UserSchema= new mongoose.Schema<UserI>({
-name:{
-    type:String,
-    required:true,
-},
+const UserSchema = new mongoose.Schema<UserI>({
 
-email:{
-    type:String,
-    required:true,
-    unique:true,
-},
-password:{
-    type:String,
-    required:true,
+  fullName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: false,
+  },
+  birthDay: {
+    type: Date,
+    required: true,
+    max: new Date(),
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-},
-
-})
-export const User = models.User || model<UserI>('User', UserSchema);
+// Initialize model properly
+export const User =
+  mongoose.models?.User || mongoose.model<UserI>("User", UserSchema);

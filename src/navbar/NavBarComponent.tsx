@@ -1,27 +1,30 @@
-
 import React from "react";
 import { NavBarData } from "./NavBarData";
 import { Avatar } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import logo from "../assets/logo.png";
 
-import { headers } from 'next/headers';
+import { headers } from "next/headers";
 import NavBarListTileComponent from "./NavBarListTileComponent";
+import LogOutButton from "./LogOutButton";
+import UserEmailText from "./UserEmailText";
 
 // import { headers } from "next/headers";
-export  default async function NavBarComponent({
-  item
-} :{item?:NavBarData}) {
- 
+export default async function NavBarComponent({ item }: { item?: NavBarData }) {
   return (
-    <div className="flex flex-col w-3xs h-screen bg-white-200 shadow-lg">
+    <div className="flex-none  flex flex-col w-max-3xs w-min-3xs w-3xs  bg-white-200 shadow-lg flex-shrink-0">
       {header(item)}
       {divider}
       <div className="flex-1 w-full overflow-y-auto ps-3.5 pe-4 pt-4 pb-4">
-        {item?.items?.map((item) => <NavBarListTileComponent item={item} key={item.link} />)}
+        {item?.items?.map((item) => (
+          <NavBarListTileComponent item={item} key={item.link} />
+        ))}
       </div>
       {divider}
-      <div className="h-20 w-full ">footer</div>
+      <div className="h-20 w-full flex flex-row items-center justify-between space-x-0.5">
+        <UserEmailText />
+        <LogOutButton />
+      </div>
     </div>
   );
 }
@@ -29,8 +32,7 @@ export  default async function NavBarComponent({
 const divider = <hr className="border[#EAEAEF]" />;
 // header Nav Bar ===================================================
 const header = (item: NavBarData | undefined): React.JSX.Element => {
-  
-    if (item?.dashboardTitle === undefined) {
+  if (item?.dashboardTitle === undefined) {
     return <div></div>;
   }
   return (
@@ -50,11 +52,10 @@ const header = (item: NavBarData | undefined): React.JSX.Element => {
   );
 };
 
-
-export async function getCurrentPathName():Promise<string>{
+export async function getCurrentPathName(): Promise<string> {
   const headersList = headers();
-  const fullUrl =(await headersList).get('referer') || "";
-  const pathName=new URL(fullUrl || "").pathname;
+  const fullUrl = (await headersList).get("referer") || "";
+  const pathName = new URL(fullUrl || "").pathname;
 
-   return pathName;
+  return pathName;
 }
