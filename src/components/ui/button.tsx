@@ -10,9 +10,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
+<<<<<<< HEAD
           "bg-primary-600 duration-300 ease-in text-primary-foreground cursor-pointer shadow-sm hover:primary-600/90 focus-visible:ring-primary-600/50 dark:focus-visible:ring-primary-600/60 ",
         danger:
           "bg-danger text-danger-foreground cursor-pointer shadow-sm hover:bg-danger/90 focus-visible:ring-danger/50 dark:focus-visible:ring-danger/60",
+=======
+          "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:ring-primary/50 dark:focus-visible:ring-primary/60 ",
+        danger:
+          "bg-danger text-danger-foreground shadow-sm hover:bg-danger/90 focus-visible:ring-danger/50 dark:focus-visible:ring-danger/60",
+>>>>>>> 3b54f21d62a4d3a5ae1f09d685b143f0c7ef776a
         outline:
           "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
         secondary:
@@ -31,7 +37,11 @@ const buttonVariants = cva(
     },
     defaultVariants: {
       variant: "primary",
+<<<<<<< HEAD
       size: "normal",
+=======
+      size: "default",
+>>>>>>> 3b54f21d62a4d3a5ae1f09d685b143f0c7ef776a
     },
   }
 )

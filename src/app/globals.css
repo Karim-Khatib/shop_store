@@ -68,6 +68,7 @@
 --color-primary-200: var(--color-primary-200);
 --color-primary-100: var(--color-primary-100);
 
+// ... existing code ...
 /* Success Colors */
 --color-success-700: var(--color-success-700);
 --color-success-600: var(--color-success-600);
@@ -107,8 +108,6 @@
 --color-button-neutral-0: var(--color-button-neutral-0);
 --color-button-primary-600: var(--color-button-primary-600);
 --color-button-primary-500: var(--color-button-primary-500);
-
---color-toast-danger: var(--color-toast-danger);
 
 
 
@@ -207,7 +206,6 @@
     --color-button-neutral-0: #FFFFFF;
     --color-button-primary-600: #002E5D;
     --color-button-primary-500: #0747A6;
-    --color-toast-danger: #FF5A5F;
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
 
@@ -306,7 +304,6 @@
     --color-button-neutral-0: #FFFFFF;
     --color-button-primary-600: #7388A0;
     --color-button-primary-500: #2C3E50;
-    --color-toast-danger: #FF5A5F;
 
 }
 

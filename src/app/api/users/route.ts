@@ -3,8 +3,9 @@ import { connectDB } from "../../../backend/mongodb/MongoDbProvider";
 import { User } from "../../../backend/mongodb/models/Users";
 import { NextResponse } from "next/server";
 export const revalidate = 60;
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    console.log(request);
     const userResponse = await getUserByEmail("asdasdas");
     return NextResponse.json(userResponse, { status: 200 });
   } catch (e) {
@@ -14,8 +15,9 @@ export async function GET() {
     );
   }
 }
-export async function POST() {
+export async function POST(request: Request) {
   try {
+    console.log(request);
     await connectDB(); //
     const user = await User.create({
       name: "test",
@@ -30,4 +32,3 @@ export async function POST() {
     );
   }
 }
-export const runtime = "nodejs"; // Add this line
