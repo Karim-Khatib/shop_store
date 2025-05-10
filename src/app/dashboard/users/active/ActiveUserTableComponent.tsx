@@ -26,22 +26,22 @@ export default async function ActiveUserTableComponent(
 
   return (
     <>
-      <Table className="bg-neutral-50 p-0.5 h-1/2 ">
+      <Table className="bg-neutral-0 p-0.5 h-1/2 ">
         <TableHeader>
           <TableRow>
-            <TableHead className="sticky -top-0.5 z-20 bg-neutral-50">
+            <TableHead className="sticky -top-0.5 z-20 bg-neutral-0">
               NO
             </TableHead>
-            <TableHead className="sticky top-0 z-20 bg-neutral-50">
+            <TableHead className="sticky top-0 z-20 bg-neutral-0">
               Personally Picture
             </TableHead>
-            <TableHead className="sticky top-0 z-20 bg-neutral-50">
+            <TableHead className="sticky top-0 z-20 bg-neutral-0">
               Full Name
             </TableHead>
-            <TableHead className="sticky top-0 z-20 bg-neutral-50">
+            <TableHead className="sticky top-0 z-20 bg-neutral-0">
               Email
             </TableHead>
-            <TableHead className="sticky top-0 z-20 bg-neutral-50">
+            <TableHead className="sticky top-0 z-20 bg-neutral-0">
               Birth Day
             </TableHead>
           </TableRow>

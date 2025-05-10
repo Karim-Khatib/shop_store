@@ -1,9 +1,7 @@
 import ActiveUserTableComponent from "@/app/dashboard/users/active/ActiveUserTableComponent";
 import DashboardPageTitle from "@/app/dashboard/DashboardPageTitle";
 import DashboardTableHeader from "@/app/dashboard/DashboardTableHeader";
-import React, { Suspense } from "react";
 import CreateUserDialogComponent from "./CreateUserDialogComponent";
-import Loading from "../../loading";
 type Props = {
   searchParams: Promise<{ pageSize?: string; page?: string; search?: string }>;
   params: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -20,13 +18,13 @@ export default async function Users(props: Props) {
       <DashboardTableHeader currentValue={params.search}>
         <CreateUserDialogComponent />
       </DashboardTableHeader>
-      <Suspense fallback={<Loading></Loading>}>
+      {/* <Suspense fallback={<Loading></Loading>}> */}
         <ActiveUserTableComponent
           page={page}
           pageSize={pageSizeNumber}
           search={params.search}
         />
-      </Suspense>
+      {/* </Suspense> */}
     </div>
   );
 }
