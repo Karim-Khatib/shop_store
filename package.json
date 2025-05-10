@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
-    "postinstall": "npm rebuild sharp"
+    "postinstall": "npm rebuild sharp",
+    "start": "node_modules/next/dist/bin/next start -p $PORT"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
