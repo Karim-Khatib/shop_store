@@ -11,7 +11,7 @@ export const config = {
   },
 };
 
-export async function watchUserChanges() {
+ async function watchUserChanges() {
   try {
     await connectDB();
     const collection = User.collection;

@@ -5,7 +5,16 @@ import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import { ModeToggle } from "@/components/ui/ModeToggle";
-const SeventyFont =localFont({ src: new URL( "../fonts/SeventyFont.ttf", import.meta.url).toString() })
+const SeventyFont = localFont({
+  src: [
+    {
+      path: "../fonts/SeventyFont.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  preload: false,
+});
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
