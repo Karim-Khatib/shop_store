@@ -3,6 +3,7 @@ import { PrivateRoute, PublicRoute, RoutesName } from "./lib/constant";
 // import { getCurrentUser } from "./backend/auth/UserAuth";
 import { getSession } from "./backend/auth/Session";
 
+
 export async function middleware(request: NextRequest) {
   const currentUser = await getSession(); // const token = request.get('session')?.value
   const isLoggedIn = currentUser != undefined;
