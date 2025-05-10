@@ -8,6 +8,17 @@ const nextConfig: NextConfig = {
     domains: ["biovthdsobsjaasqqeak.supabase.co"],
         unoptimized: true,
 
+        
+  },
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.node = {
+        fs: 'empty', 
+        net: 'empty',
+        tls: 'empty',
+      };
+    }
+    return config;
   },
   //TODO: Keep this for future use
   
