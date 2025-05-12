@@ -1,8 +1,7 @@
-import DynamicButton from "@/component/core/dynamicButton";
+import DynamicInput from "@/component/core/dynamicInput";
 import ToggleThemeButton from "@/component/core/toggleThemeButton";
 import { getStyle } from "@/hooks/styles";
 import { useTheme } from "@/hooks/themeProvider";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
@@ -25,37 +24,24 @@ export default function Login() {
       <Text style={style.buttonText}>Login</Text>
       <ToggleThemeButton />
       <Link href={"/(auth)/register"}> GoTo Register</Link>
-      <DynamicButton
-        type="primary"
-        title="press me"
-        onPressed={() => {}}
-        iconBuilder={(color, size, style) => (
-          <FontAwesome style={style} name="send" color={color} size={size} />
-        )}
+      <DynamicInput
+        type="email"
+        description="Re-enabling Developer Options."
+        label="email"
+        placeholder="placeholder"
+        error="error"
       />
-      <DynamicButton
-        type="onPrimary"
-        title="press me"
-        onPressed={() => {}}
-        iconBuilder={(color, size, style) => (
-          <FontAwesome style={style} name="send" color={color} size={size} />
-        )}
+      <DynamicInput
+        type="email"
+        description="Re-enabling Developer Options."
+        label="label"
+        placeholder="placeholder"
       />
-      <DynamicButton
-        type="danger"
-        title="press me"
-        onPressed={() => {}}
-        iconBuilder={(color, size, style) => (
-          <FontAwesome style={style} name="send" color={color} size={size} />
-        )}
-      />
-      <DynamicButton
-        type="success"
-        title="press me"
-        onPressed={() => {}}
-        iconBuilder={(color, size, style) => (
-          <FontAwesome style={style} name="send" color={color} size={size} />
-        )}
+      <DynamicInput
+        type="password"
+        description="Re-enabling Developer Options."
+        label="label"
+        placeholder="placeholder"
       />
     </View>
   );

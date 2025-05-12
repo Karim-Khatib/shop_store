@@ -86,7 +86,7 @@ export function getStyle(theme: Theme) {
       lineHeight: 14,
     },
     smallButtonText: {
-      color: theme.neutral[100],
+      color: theme.neutral[900],
       fontWeight: "600",
       fontSize: 12,
       lineHeight: 14,
@@ -117,6 +117,9 @@ export function getStyle(theme: Theme) {
     disableButton: {
       ...buttonCore,
       backgroundColor: theme.neutral[400],
+    },
+    focusInput: {
+      borderColor: theme.primaryButton[500],
     },
   });
 }
