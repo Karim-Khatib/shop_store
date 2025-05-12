@@ -29,6 +29,8 @@ type DynamicInputProps = {
   style?: object;
   error?: string;
   onChangeText?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onChangeDate?: (e: string) => void;
+
   register?: UseFormRegisterReturn<any>;
   value?: string;
 };
@@ -87,7 +89,6 @@ const styles = StyleSheet.create({
 });
 
 function DateTimeFiled(props: TextInputFiledProps) {
-  const [date, setDate] = useState(new Date());
   const [picker, showPicker] = useState(false);
   const togglesDialog = useCallback(() => {
     showPicker(!picker);
@@ -104,8 +105,8 @@ function DateTimeFiled(props: TextInputFiledProps) {
   const onChange = (e: DateTimePickerEvent, date?: Date) => {
     if (e.type === "set") {
       const currentDate = date;
-      if (currentDate) {
-        setDate(currentDate);
+      if (currentDate && props.props?.onChangeDate) {
+        props.props?.onChangeDate(currentDate.toLocaleDateString("en"));
       }
     }
   };
@@ -115,10 +116,10 @@ function DateTimeFiled(props: TextInputFiledProps) {
       <Pressable onPress={togglesDialog}>
         <TextInputFiled
           {...props}
-          props={{
-            ...props.props,
-            value: date.toLocaleDateString(),
-          }}
+          // props={{
+          //   ...props.props,
+          //   value: date.toLocaleDateString(),
+          // }}
           editable={false}
           icon={<AntDesign name="calendar" size={12} color="black" />}
         />

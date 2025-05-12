@@ -3,9 +3,13 @@ import React, { useCallback } from "react";
 import { Image, View } from "react-native";
 import DynamicButton from "./dynamicButton";
 import SizedBox from "./sizedBox";
-export default function CircleAvatar() {
+type CircleAvatarProps = {
+  uri?: string;
+  onChange?: (uri: string) => void;
+};
+export default function CircleAvatar(props: CircleAvatarProps) {
   const [image, setImage] = React.useState({
-    uri: "https://i.pravatar.cc/150",
+    uri: props.uri ?? "https://i.pravatar.cc/150?img=1",
     isLocal: false,
   });
 
@@ -23,6 +27,9 @@ export default function CircleAvatar() {
         uri: result.assets[0].uri,
         isLocal: true,
       });
+      if (props.onChange) {
+        props.onChange(result.assets[0].uri);
+      }
     } else {
       alert("You did not select any image.");
     }
