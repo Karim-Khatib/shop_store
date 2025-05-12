@@ -1,4 +1,4 @@
-import DynamicInput from "@/component/core/dynamicInput";
+import CircleAvatar from "@/component/core/circleAvatar";
 import ToggleThemeButton from "@/component/core/toggleThemeButton";
 import { getStyle } from "@/hooks/styles";
 import { useTheme } from "@/hooks/themeProvider";
@@ -24,25 +24,7 @@ export default function Login() {
       <Text style={style.buttonText}>Login</Text>
       <ToggleThemeButton />
       <Link href={"/(auth)/register"}> GoTo Register</Link>
-      <DynamicInput
-        type="email"
-        description="Re-enabling Developer Options."
-        label="email"
-        placeholder="placeholder"
-        error="error"
-      />
-      <DynamicInput
-        type="email"
-        description="Re-enabling Developer Options."
-        label="label"
-        placeholder="placeholder"
-      />
-      <DynamicInput
-        type="password"
-        description="Re-enabling Developer Options."
-        label="label"
-        placeholder="placeholder"
-      />
+      <CircleAvatar />
     </View>
   );
 }

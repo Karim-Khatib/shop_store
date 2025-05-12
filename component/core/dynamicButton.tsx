@@ -11,6 +11,8 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+
+
 type ButtonProps = {
   children?: React.ReactNode;
   type: "primary" | "danger" | "onPrimary" | "success";
@@ -43,6 +45,7 @@ export default function DynamicButton(props: ButtonProps) {
     <TouchableOpacity
       activeOpacity={0.7}
       disabled={props.isDisabled}
+      onPress={props.onPressed}
       style={[
         style[props.type],
         props.style,
