@@ -13,6 +13,7 @@ export const light:Theme = {
     700: "#97A0AF",
     800: "#8993A4",
     900: "#7A869A",
+    1000:"#181826"
   
   },
   primary: {
@@ -88,6 +89,7 @@ export const dark = {
     700: "#5E6C84",
     800: "#6B778C",
     900: "#7A869A",
+    1000:"#FFFFFF"
   },
   primary: {
     100: "#E6EDFA",

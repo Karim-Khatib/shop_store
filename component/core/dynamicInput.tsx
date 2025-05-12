@@ -9,7 +9,16 @@ import {
 } from "@react-native-community/datetimepicker";
 
 import React, { ReactNode, useCallback, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { UseFormRegisterReturn } from "react-hook-form";
+import {
+  NativeSyntheticEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputChangeEventData,
+  View,
+} from "react-native";
 
 type DynamicInputProps = {
   placeholder?: string;
@@ -19,6 +28,9 @@ type DynamicInputProps = {
   type: "text" | "password" | "email" | "number" | "phone" | "date";
   style?: object;
   error?: string;
+  onChangeText?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  register?: UseFormRegisterReturn<any>;
+  value?: string;
 };
 
 export default function DynamicInput(props: DynamicInputProps) {
@@ -68,6 +80,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 12,
+    width: 300,
     color: "#666",
     marginTop: 5,
   },
@@ -102,7 +115,10 @@ function DateTimeFiled(props: TextInputFiledProps) {
       <Pressable onPress={togglesDialog}>
         <TextInputFiled
           {...props}
-          value={date.toLocaleDateString()}
+          props={{
+            ...props.props,
+            value: date.toLocaleDateString(),
+          }}
           editable={false}
           icon={<AntDesign name="calendar" size={12} color="black" />}
         />
@@ -115,7 +131,6 @@ type TextInputFiledProps = {
   currentTheme: Theme;
   themeStyle: ReturnType<typeof getStyle>;
   editable?: boolean;
-  value?: string;
   icon?: ReactNode;
 };
 function TextInputFiled(props: TextInputFiledProps) {
@@ -149,7 +164,8 @@ function TextInputFiled(props: TextInputFiledProps) {
         ]}
       >
         <TextInput
-          value={props.value}
+          onChange={props?.props?.onChangeText}
+          value={props.props.value}
           editable={props.editable}
           style={{ flex: 1, width: 400 }}
           textAlign="left"
@@ -160,6 +176,7 @@ function TextInputFiled(props: TextInputFiledProps) {
             setFocus(false);
           }}
           placeholder={props.props.placeholder}
+          {...props.props.register}
         />
         {props.icon}
       </View>

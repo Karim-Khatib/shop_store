@@ -22,23 +22,23 @@ export function useTheme() {
 const STORAGE_KEY = "secret-key";
 export default function ThemeProvider(props: { children: React.ReactNode }) {
   const themeSystem = useColorScheme();
-  const [theme, setTheme] = useState(themeSystem || ThemeType.LIGHT);
+  const [theme, setTheme] = useState(ThemeType.LIGHT);
   const [currentTheme, setCurrentTheme] = useState(appTheme[theme]);
 
   useEffect(() => {
     const loadThemeFromStorage = async () => {
       let stored = await AsyncStorage.getItem(STORAGE_KEY);
-
-      if (stored === ThemeType.LIGHT && theme !== ThemeType.LIGHT) {
-        setTheme(ThemeType.LIGHT);
-      } else if (stored === ThemeType.DARK && theme !== ThemeType.DARK) {
-        setTheme(ThemeType.DARK);
+      if (stored) {
+        if (stored === ThemeType.LIGHT && theme !== ThemeType.LIGHT) {
+          setTheme(ThemeType.LIGHT);
+        } else if (stored === ThemeType.DARK && theme !== ThemeType.DARK) {
+          setTheme(ThemeType.DARK);
+        }
+      } else {
+        setTheme(themeSystem === "dark" ? ThemeType.DARK : ThemeType.LIGHT);
       }
     };
     loadThemeFromStorage();
-    return () => {
-      AsyncStorage.setItem(STORAGE_KEY, theme);
-    };
   }, []);
 
   const toggleTheme = useCallback(() => {
@@ -52,6 +52,7 @@ export default function ThemeProvider(props: { children: React.ReactNode }) {
   }, []);
   useEffect(() => {
     setCurrentTheme(appTheme[theme]);
+    AsyncStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
   return (
     <ThemeContext.Provider
@@ -65,4 +66,3 @@ export default function ThemeProvider(props: { children: React.ReactNode }) {
     </ThemeContext.Provider>
   );
 }
-

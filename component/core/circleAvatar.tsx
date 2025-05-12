@@ -1,7 +1,8 @@
+import * as ImagePicker from "expo-image-picker";
 import React, { useCallback } from "react";
 import { Image, View } from "react-native";
 import DynamicButton from "./dynamicButton";
-import * as ImagePicker from "expo-image-picker";
+import SizedBox from "./sizedBox";
 export default function CircleAvatar() {
   const [image, setImage] = React.useState({
     uri: "https://i.pravatar.cc/150",
@@ -39,7 +40,11 @@ export default function CircleAvatar() {
           uri: image.uri,
         }}
       ></Image>
+      <SizedBox height={20} />
       <DynamicButton
+        style={{
+          width: 100,
+        }}
         onPressed={pickImage}
         title="Chose Profile Picture"
         type="onPrimary"

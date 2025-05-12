@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { AuthState, AuthStatusEnum, User } from "./types";
+import { z } from 'zod';
 
 const initialState: AuthState = {
   authState: AuthStatusEnum.INIT,
@@ -36,5 +37,13 @@ export const authSalic = createSlice({
     },
   },
 });
+export const loginSchema = z.object({
+  email: z.string().email({ message: "Invalid Email" }),
+  password: z.string().min(6, { message: "password must to bee 6 character" }),
+});
+
+
+
+export type LoginSchemaType = z.infer<typeof loginSchema>;
 export const authStore = configureStore(authSalic);
-export const { login } = authSalic.actions;
+export const { login, } = authSalic.actions;
