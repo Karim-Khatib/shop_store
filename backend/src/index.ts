@@ -4,12 +4,17 @@ import UserModel from "./model/user";
 import { connectToMongo } from "./provider/mongo";
 import { authRouter } from "./routes/authRout";
 import fileRouter from "./routes/fileRouter";
+import cors from "cors"
 const app = express();
 morgan.token("body", (req): string | undefined => {
   return (req as any).body && Object.keys((req as any).body).length
     ? JSON.stringify((req as any).body)
     : undefined;
 });
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cors());
+
 
 app.use(
   morgan(function (tokens, req, res) {

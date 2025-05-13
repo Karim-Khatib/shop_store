@@ -6,6 +6,8 @@ import SizedBox from "./sizedBox";
 type CircleAvatarProps = {
   uri?: string;
   onChange?: (uri: string) => void;
+  hidButton?: boolean;
+  size?: number;
 };
 export default function CircleAvatar(props: CircleAvatarProps) {
   const [image, setImage] = React.useState({
@@ -42,20 +44,30 @@ export default function CircleAvatar(props: CircleAvatarProps) {
       }}
     >
       <Image
-        style={{ width: 130, height: 130, borderRadius: 65 }}
+        style={{
+          width: props.size ?? 130,
+          height: props.size ?? 130,
+          borderRadius: props.size ? props.size / 2 : 65,
+        }}
         source={{
           uri: image.uri,
         }}
       ></Image>
-      <SizedBox height={20} />
-      <DynamicButton
-        style={{
-          width: 100,
-        }}
-        onPressed={pickImage}
-        title="Chose Profile Picture"
-        type="onPrimary"
-      />
+      {props.hidButton === true ? (
+        <></>
+      ) : (
+        <>
+          <SizedBox height={20} />
+          <DynamicButton
+            style={{
+              width: 100,
+            }}
+            onPressed={pickImage}
+            title="Chose Profile Picture"
+            type="onPrimary"
+          />
+        </>
+      )}
     </View>
   );
 }

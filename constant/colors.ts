@@ -1,4 +1,4 @@
-import { Theme, ThemeType } from "@/hooks/types";
+import { ColorShades, Theme, ThemeType } from "@/hooks/types";
 
 
 
@@ -73,6 +73,7 @@ export const light:Theme = {
   },
   primaryButton:{
     0:"#FFFFFF",
+    100:"#32324D",
     500:"#0747A6",
     600:"#002E5D",
   }
@@ -148,13 +149,27 @@ export const dark = {
   },
   primaryButton:{
     0:"#FFFFFF",
+    100:"#1D1D27",
     500:"#2C3E50",
     600:"#7388A0",
   }
+
 };
 
 
+export const secondary :ColorShades={
+  100:"#FFF3E0",
+  200:"#FFE082",
+  300:"#FFAB00",
+  400:"#FF9E00",
+  500:"#FF8A00",
+  600:"",
+  700:"",
+  800:"",
+  900:"",
 
+
+}
 export const appTheme= {
   light:light,
   dark:dark,

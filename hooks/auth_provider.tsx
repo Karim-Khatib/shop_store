@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { uploadFile } from "@/api/clodeStorge";
 import * as SecureStore from "expo-secure-store";
 import React, {
@@ -15,8 +14,8 @@ import { checkUser, loginViaEmail, userRegister } from "@/api/user";
 import { showError } from "@/component/core/toast";
 import { useRouter } from "expo-router";
 import { z } from "zod";
-import { AuthState, AuthStatusEnum, UserType } from "./types";
 import { useLoading } from "./loadingProvider";
+import { AuthState, AuthStatusEnum, UserType } from "./types";
 
 const initialState: AuthState = {
   authState: AuthStatusEnum.INIT,
@@ -35,10 +34,11 @@ const useAuth = () => {
   return useContext(AuthContext);
 };
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const {showLoading,hideLoading}=useLoading();
+  const { showLoading, hideLoading } = useLoading();
   const router = useRouter();
   const [authState, setAuthState] = useState<AuthState>(initialState);
   useEffect(() => {
+    console.log("authProvider useEffect");
     checkUser().then((response) => {
       if (response.success) {
         const { user }: { user: UserType } = response.result;
@@ -46,11 +46,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           authState: AuthStatusEnum.AUTH,
           user,
         });
+        router.replace("/(home)/home");
       } else {
         setAuthState({
           authState: AuthStatusEnum.NOTAUTH,
           user: null,
         });
+        router.replace("/(auth)/login");
       }
     });
   }, []);
@@ -59,7 +61,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         console.log({ responseLogin: email });
         showLoading();
-        const response = await loginViaEmail( email, password );
+        const response = await loginViaEmail(email, password);
         console.log({ responseLogin: response });
         if (response.success) {
           const { token, user }: { token: string; user: UserType } =
@@ -71,11 +73,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           });
           router.replace("/(home)/home");
         } else {
-          showError(response.error?.message??"Email or Password is incorrect")
+          showError(
+            response.error?.message ?? "Email or Password is incorrect"
+          );
           setAuthState({
             authState: AuthStatusEnum.NOTAUTH,
             user: null,
-          })
+          });
         }
       } catch (error) {
         console.log(error);
@@ -93,6 +97,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const register = useCallback(
     async (data: RegisterSchemaType): Promise<void> => {
       try {
+        showLoading();
         let imageUrl: string | undefined = undefined;
         if (data.imageUrl) {
           const response = await uploadFile({
@@ -132,6 +137,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           authState: AuthStatusEnum.NOTAUTH,
           user: null,
         });
+      } finally {
+        hideLoading();
       }
     },
     []
@@ -143,6 +150,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       authState: AuthStatusEnum.NOTAUTH,
       user: null,
     });
+    router.replace("/(auth)/login");
   }, []);
 
   const contextValue = useMemo(

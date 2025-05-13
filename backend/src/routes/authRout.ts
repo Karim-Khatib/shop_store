@@ -3,7 +3,7 @@ import { Router } from "express";
 import { console } from "inspector/promises";
 import { generateToken, verifyToken } from "../config/jwt.config";
 import UserModel, { IUser } from "../model/user";
-import { ResponseType } from "../types/responseType";
+import { ResponseType, UserType } from "../types/responseType";
 
 const authRouter = Router();
 authRouter.use("/login", async (req, res) => {
@@ -46,7 +46,7 @@ authRouter.use("/login", async (req, res) => {
         },
       },
     });
-    return
+    return;
   } catch (err) {
     console.error(err);
     const response: ResponseType = {
@@ -109,7 +109,6 @@ authRouter.use("/register", async (req, res) => {
 });
 
 authRouter.use("/checkUser", async (req, res) => {
-  console.log("checkUser run", req.body);
   const { token } = req.body;
   try {
     const plain = verifyToken(token);
@@ -140,13 +139,18 @@ authRouter.use("/checkUser", async (req, res) => {
       res.json(response);
       return;
     }
+    const userTyped = {
+      fullName: user.fullName,
+      email: user.email,
+      password: user.password,
+      imageUrl: user.imageUrl,
+      birthDay: user.birthDay,
+      id: user._id!.toString() ?? "",
+    };
     const response: ResponseType = {
       success: true,
       result: {
-        user: {
-          ...user,
-          id: user._id,
-        },
+        user: userTyped,
       },
     };
     res.status(200).json(response);

@@ -35,6 +35,7 @@ interface ColorShades {
 
 interface ButtonColors {
   0: string;
+  100:string,
   500: string;
   600: string;
 }
@@ -58,4 +59,4 @@ interface Theme {
   birthDay: Date;
 };
 export { Theme };
-export {AuthState,UserType,AuthStatusEnum,ThemeType,ThemeState }
+export {AuthState,UserType,AuthStatusEnum,ThemeType,ThemeState,ColorShades }

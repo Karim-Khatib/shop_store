@@ -12,13 +12,15 @@ fileRouter.use("/uploadedFile", upload.single("file"), (req, res) => {
         message: "No File Uploaded",
       },
     };
-    res.status(404).json(payload);
+    res.json(payload);
     return;
   }
+  const fileUrl = `http://${req.hostname}:3000/uploads/${req.file.filename}`;
+ 
   const payload: ResponseType = {
     success: true,
-    result: `${req.file.path}${req.file.filename}`,
+    result: fileUrl,
   };
-  res.status(200).json(payload);
+  res.json(payload);
 });
 export default fileRouter;

@@ -8,3 +8,11 @@ export interface ResponseType {
     message: string;
   };
 }
+export interface UserType extends Document {
+  fullName: string;
+  email: string;
+  password: string;
+  imageUrl?: string;
+  birthDay: Date;
+  id:string;
+}

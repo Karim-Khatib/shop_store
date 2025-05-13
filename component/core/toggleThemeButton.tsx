@@ -3,12 +3,34 @@ import { useTheme } from "@/hooks/themeProvider";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
-export default function ToggleThemeButton() {
+export default function ToggleThemeButton({
+  iconSize,
+  circleSize,
+}: {
+  iconSize?: number;
+  circleSize?: number;
+}) {
   const { currentTheme, theme, toggleTheme } = useTheme();
   const style = getStyle(currentTheme);
   return (
-    <TouchableOpacity style={style.toggleButton} onPress={toggleTheme}>
-      <Text style={style.toggleIcon}>{getIcon(theme)}</Text>
+    <TouchableOpacity
+      style={[
+        style.toggleButton,
+        circleSize
+          ? {
+              width: circleSize,
+              height: circleSize,
+              borderRadius: circleSize / 2,
+            }
+          : {},
+      ]}
+      onPress={toggleTheme}
+    >
+      <Text
+        style={[style.toggleIcon, iconSize ? { fontSize: iconSize } : null]}
+      >
+        {getIcon(theme)}
+      </Text>
     </TouchableOpacity>
   );
 }

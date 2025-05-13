@@ -1,5 +1,6 @@
 import { StyleSheet, ViewStyle } from "react-native";
 import { Theme } from "./types";
+import { light } from "@/constant/colors";
 
 export function getStyle(theme: Theme) {
   const buttonCore: ViewStyle = {
@@ -123,5 +124,8 @@ export function getStyle(theme: Theme) {
     focusInput: {
       borderColor: theme.primaryButton[500],
     },
+    tabBar:{
+      backgroundColor:theme.primaryButton[100],
+    }
   });
 }

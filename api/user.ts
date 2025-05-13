@@ -59,6 +59,7 @@ export const userRegister = async (
 };
 export const checkUser = async (): Promise<ResponseType> => {
   const token = await SecureStore.getItemAsync("authToken");
+
   if (!token) {
     const response: ResponseType = {
       success: false,
@@ -75,6 +76,7 @@ export const checkUser = async (): Promise<ResponseType> => {
       { data: ResponseType },
       { token: string }
     >("/auth/checkUser", { token });
+
     return res.data;
   } catch (err) {
     console.error(err);
