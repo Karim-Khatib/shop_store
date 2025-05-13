@@ -1,5 +1,6 @@
 import LoadingComponent from "@/component/core/loading";
 import { AuthProvider, useAuth } from "@/hooks/auth_provider";
+import LoadingProvider from "@/hooks/loadingProvider";
 import ThemeProvider from "@/hooks/themeProvider";
 import { AuthStatusEnum } from "@/hooks/types";
 import { Stack } from "expo-router";
@@ -8,14 +9,24 @@ const toastConfig: ToastConfig = {
   loading: () => <LoadingComponent />,
 };
 export default function RootLayout() {
-  const authProvider = useAuth();
+  // const authProvider = useAuth();
   // if (!authProvider || authProvider?.authState === AuthStatusEnum.INIT) {
   //   return <LoadingComponent />;
   // }
+  // console.log(authProvider?.authState);
   return (
     <ThemeProvider>
+      <LoadingProvider>
       <AuthProvider>
-        <Stack initialRouteName="(auth)" screenOptions={{}}>
+        <Stack
+          initialRouteName={
+            // authProvider?.authState === AuthStatusEnum.AUTH
+            //   ? "(home)"
+            //   :
+               "(auth)"
+          }
+          screenOptions={{}}
+        >
           <Stack.Screen
             name="(auth)"
             options={{
@@ -30,6 +41,7 @@ export default function RootLayout() {
           ></Stack.Screen>
         </Stack>
       </AuthProvider>
+      </LoadingProvider>
       <Toast config={toastConfig} />
     </ThemeProvider>
   );

@@ -1,11 +1,65 @@
 import bcrypt from "bcrypt";
 import { Router } from "express";
-import { generateToken } from "../config/jwt.config";
+import { console } from "inspector/promises";
+import { generateToken, verifyToken } from "../config/jwt.config";
 import UserModel, { IUser } from "../model/user";
 import { ResponseType } from "../types/responseType";
 
 const authRouter = Router();
-
+authRouter.use("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      const response: ResponseType = {
+        success: false,
+        error: {
+          errorCode: 400,
+          message: "user not found",
+        },
+      };
+      res.json(response);
+    }
+    const isMatch = await comparePassword(password, user!.password);
+    if (!isMatch) {
+      const response: ResponseType = {
+        success: false,
+        error: {
+          errorCode: 400,
+          message: "invalid password",
+        },
+      };
+      res.json(response);
+      return;
+    }
+    const token = generateToken({
+      userId: user!._id,
+      email: user!.email,
+    });
+    res.json({
+      success: true,
+      result: {
+        token,
+        user: {
+          ...user,
+          id: user!._id,
+        },
+      },
+    });
+    return
+  } catch (err) {
+    console.error(err);
+    const response: ResponseType = {
+      success: false,
+      error: {
+        errorCode: 500,
+        message: "internal server error",
+      },
+    };
+    res.json(response);
+    return;
+  }
+});
 authRouter.use("/register", async (req, res) => {
   const user: IUser = req.body;
   try {
@@ -18,7 +72,7 @@ authRouter.use("/register", async (req, res) => {
           message: "user already exists",
         },
       };
-      res.status(300).json(response);
+      res.json(response);
     }
     const hashedPassword: string = await hashPassword(user.password);
     const newUser = await UserModel.create({
@@ -39,11 +93,11 @@ authRouter.use("/register", async (req, res) => {
         },
       },
     };
-    res.status(201).json(response);
+    res.json(response);
     return;
   } catch (err) {
     console.error(err);
-    res.status(500).json({
+    res.json({
       success: false,
       error: {
         errorCode: 500,
@@ -54,6 +108,62 @@ authRouter.use("/register", async (req, res) => {
   }
 });
 
+authRouter.use("/checkUser", async (req, res) => {
+  console.log("checkUser run", req.body);
+  const { token } = req.body;
+  try {
+    const plain = verifyToken(token);
+    console.log({ plain });
+    const data = plain as { email: string; userId: string } | undefined;
+    if (!data) {
+      const response: ResponseType = {
+        success: false,
+        error: {
+          errorCode: 401,
+          message: "Unauthorized",
+        },
+      };
+      res.json(response);
+      return;
+    }
+    const { email, userId } = data;
+
+    const user = await UserModel.findOne({ email, _id: userId });
+    if (!user) {
+      const response: ResponseType = {
+        success: false,
+        error: {
+          errorCode: 401,
+          message: "Unauthorized",
+        },
+      };
+      res.json(response);
+      return;
+    }
+    const response: ResponseType = {
+      success: true,
+      result: {
+        user: {
+          ...user,
+          id: user._id,
+        },
+      },
+    };
+    res.status(200).json(response);
+    return;
+  } catch (err) {
+    console.error(err);
+    const response: ResponseType = {
+      success: false,
+      error: {
+        errorCode: 500,
+        message: "Internal Error",
+      },
+    };
+    res.json(response);
+    return;
+  }
+});
 const hashPassword = async (plain: string) => {
   return await bcrypt.hash(plain, 10);
 };

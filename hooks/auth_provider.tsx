@@ -6,15 +6,17 @@ import React, {
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
 
-import { userRegister } from "@/api/user";
+import { checkUser, loginViaEmail, userRegister } from "@/api/user";
 import { showError } from "@/component/core/toast";
+import { useRouter } from "expo-router";
 import { z } from "zod";
 import { AuthState, AuthStatusEnum, UserType } from "./types";
-import { useRouter } from "expo-router";
+import { useLoading } from "./loadingProvider";
 
 const initialState: AuthState = {
   authState: AuthStatusEnum.INIT,
@@ -33,13 +35,57 @@ const useAuth = () => {
   return useContext(AuthContext);
 };
 const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const {showLoading,hideLoading}=useLoading();
   const router = useRouter();
   const [authState, setAuthState] = useState<AuthState>(initialState);
-
+  useEffect(() => {
+    checkUser().then((response) => {
+      if (response.success) {
+        const { user }: { user: UserType } = response.result;
+        setAuthState({
+          authState: AuthStatusEnum.AUTH,
+          user,
+        });
+      } else {
+        setAuthState({
+          authState: AuthStatusEnum.NOTAUTH,
+          user: null,
+        });
+      }
+    });
+  }, []);
   const login = useCallback(
     async (email: string, password: string): Promise<void> => {
       try {
-      } catch (error) {}
+        console.log({ responseLogin: email });
+        showLoading();
+        const response = await loginViaEmail( email, password );
+        console.log({ responseLogin: response });
+        if (response.success) {
+          const { token, user }: { token: string; user: UserType } =
+            response.result;
+          await SecureStore.setItemAsync("authToken", token);
+          setAuthState({
+            authState: AuthStatusEnum.AUTH,
+            user,
+          });
+          router.replace("/(home)/home");
+        } else {
+          showError(response.error?.message??"Email or Password is incorrect")
+          setAuthState({
+            authState: AuthStatusEnum.NOTAUTH,
+            user: null,
+          })
+        }
+      } catch (error) {
+        console.log(error);
+        setAuthState({
+          authState: AuthStatusEnum.NOTAUTH,
+          user: null,
+        });
+        showError("Cant Connect to the Server");
+      }
+      hideLoading();
     },
     []
   );
@@ -91,7 +137,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     []
   );
 
-  const logout = useCallback(async (): Promise<void> => {}, []);
+  const logout = useCallback(async (): Promise<void> => {
+    await SecureStore.deleteItemAsync("authToken");
+    setAuthState({
+      authState: AuthStatusEnum.NOTAUTH,
+      user: null,
+    });
+  }, []);
 
   const contextValue = useMemo(
     () => ({

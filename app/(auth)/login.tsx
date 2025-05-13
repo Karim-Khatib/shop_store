@@ -3,7 +3,7 @@ import DynamicButton from "@/component/core/dynamicButton";
 import DynamicInput from "@/component/core/dynamicInput";
 import SizedBox from "@/component/core/sizedBox";
 import ToggleThemeButton from "@/component/core/toggleThemeButton";
-import { loginSchema, LoginSchemaType } from "@/hooks/auth_provider";
+import { loginSchema, LoginSchemaType, useAuth } from "@/hooks/auth_provider";
 import { getStyle } from "@/hooks/styles";
 import { useTheme } from "@/hooks/themeProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +23,7 @@ export default function Login() {
   const { currentTheme } = useTheme();
   const style = getStyle(currentTheme);
   const router = useRouter();
+  const authProvider = useAuth();
   const {
     control,
     handleSubmit,
@@ -37,7 +38,7 @@ export default function Login() {
     email: string;
     password: string;
   }) => {
-    console.log(email, password);
+    authProvider?.login(email, password)
   };
 
   return (
