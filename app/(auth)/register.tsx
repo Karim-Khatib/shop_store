@@ -1,10 +1,11 @@
+import { uploadFile } from "@/api/clodeStorge";
 import CircleAvatar from "@/component/core/circleAvatar";
 import DynamicButton from "@/component/core/dynamicButton";
 import DynamicInput from "@/component/core/dynamicInput";
 import SizedBox from "@/component/core/sizedBox";
 import ToggleThemeButton from "@/component/core/toggleThemeButton";
 import { light } from "@/constant/colors";
-import { registerSchema, RegisterSchemaType } from "@/hooks/auth_provider";
+import {  registerSchema, RegisterSchemaType, useAuth } from "@/hooks/auth_provider";
 import { getStyle } from "@/hooks/styles";
 import { useTheme } from "@/hooks/themeProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,9 +13,11 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ScrollView, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 
 export default function Register(props: any) {
   const { currentTheme } = useTheme();
+  const authProvider = useAuth();
   const router = useRouter();
   const style = getStyle(currentTheme);
   const {
@@ -24,7 +27,9 @@ export default function Register(props: any) {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
-  const handelRegister = (formData: RegisterSchemaType) => {};
+  const handelRegister =async (formData: RegisterSchemaType) => {
+   await authProvider?.register(formData)
+  };
 
   return (
     // <TouchableWithoutFeedbackBase onPress={Keyboard.dismiss}>

@@ -1,15 +1,9 @@
 type AuthState= {
   authState: AuthStatusEnum;
-  user: User | null;
-  token: string | null;
+  user: UserType | null;
+  // token: string | null;
 }
-interface User{
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  
-}
+
 enum AuthStatusEnum{
     INIT='INIT',
     AUTH="AUTH",
@@ -55,5 +49,13 @@ interface Theme {
   primaryButton: ButtonColors;
 }
 
+ type UserType={
+  id: string;
+  fullName: string;
+  email: string;
+  password: string;
+  imageUrl?: string;
+  birthDay: Date;
+};
 export { Theme };
-export {AuthState,User,AuthStatusEnum,ThemeType,ThemeState }
+export {AuthState,UserType,AuthStatusEnum,ThemeType,ThemeState }
