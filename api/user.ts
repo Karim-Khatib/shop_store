@@ -3,6 +3,7 @@ import { AxiosError } from "axios";
 import * as SecureStore from "expo-secure-store";
 import api from "./client";
 import { ResponseType } from "./responseType";
+import { UserType } from "@/hooks/types";
 
 export const loginViaEmail = async (
   email: string,
@@ -16,9 +17,7 @@ export const loginViaEmail = async (
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error.code);
     }
-    console.log(error);
     const internalError: ResponseType = {
       success: false,
       error: {
@@ -43,7 +42,6 @@ export const userRegister = async (
   } catch (error) {
     console.error("register Error");
     if (error instanceof AxiosError) {
-      console.log({ error });
     }
     // console.error(error);
 
@@ -51,7 +49,7 @@ export const userRegister = async (
       success: false,
       error: {
         errorCode: 500,
-        message: "Internal Error",
+        message: "Server connection Error",
       },
     };
     return internalError;
@@ -84,7 +82,24 @@ export const checkUser = async (): Promise<ResponseType> => {
       success: false,
       error: {
         errorCode: 500,
-        message: "Internal Error",
+        message: "Server connection Error",
+      },
+    };
+    return response;
+  }
+};
+export const getAllUsers = async (): Promise<ResponseType &{results?:UserType[]}> => {
+  try {
+    const res = await api.get<ResponseType, { data: ResponseType }>("/users");
+   
+    return res.data as ResponseType &{results:UserType[]} ;
+  } catch (err) {
+    console.error(err);
+    const response: ResponseType = {
+      success: false,
+      error: {
+        errorCode: 500,
+        message: "Server connection Error",
       },
     };
     return response;

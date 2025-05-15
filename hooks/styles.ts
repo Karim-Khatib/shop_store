@@ -39,6 +39,9 @@ export function getStyle(theme: Theme) {
     container: {
       backgroundColor: theme.neutral[100],
     },
+    containerSecond: {
+      backgroundColor: theme.neutral[200],
+    },
 
     header1: {
       color: theme.neutral[1000],
@@ -126,6 +129,12 @@ export function getStyle(theme: Theme) {
     },
     tabBar:{
       backgroundColor:theme.primaryButton[100],
+    },
+    backgroundMessage:{
+      backgroundColor:theme.warning[1000]
+    },
+    backgroundMessageSecond:{
+      backgroundColor:theme.alternative[1000]
     }
   });
 }

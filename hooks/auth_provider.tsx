@@ -38,7 +38,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const [authState, setAuthState] = useState<AuthState>(initialState);
   useEffect(() => {
-    console.log("authProvider useEffect");
     checkUser().then((response) => {
       if (response.success) {
         const { user }: { user: UserType } = response.result;
@@ -59,10 +58,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = useCallback(
     async (email: string, password: string): Promise<void> => {
       try {
-        console.log({ responseLogin: email });
         showLoading();
         const response = await loginViaEmail(email, password);
-        console.log({ responseLogin: response });
         if (response.success) {
           const { token, user }: { token: string; user: UserType } =
             response.result;
@@ -82,7 +79,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           });
         }
       } catch (error) {
-        console.log(error);
         setAuthState({
           authState: AuthStatusEnum.NOTAUTH,
           user: null,
@@ -115,7 +111,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (response.success) {
           const { token, user }: { token: string; user: UserType } =
             response.result;
-          console.log({ response: response });
           await SecureStore.setItemAsync("authToken", token);
           setAuthState({
             authState: AuthStatusEnum.AUTH,
@@ -132,7 +127,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
           }
         }
       } catch (error) {
-        console.log(error);
         setAuthState({
           authState: AuthStatusEnum.NOTAUTH,
           user: null,

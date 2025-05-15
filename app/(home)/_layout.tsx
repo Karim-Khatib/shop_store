@@ -35,8 +35,9 @@ export default function HomeLayout() {
             borderRadius: 10,
             borderWidth: 0,
             marginHorizontal: 30,
+            height:50,
 
-            marginVertical: 20,
+            marginVertical: 50,
           },
         }}
       >

@@ -52,11 +52,22 @@ interface Theme {
 
  type UserType={
   id: string;
-  fullName: string;
-  email: string;
-  password: string;
+  fullName?: string;
+  email?: string;
+  password?: string;
   imageUrl?: string;
-  birthDay: Date;
+  birthDay?: Date;
 };
-export { Theme };
-export {AuthState,UserType,AuthStatusEnum,ThemeType,ThemeState,ColorShades }
+ type MassageType = {
+  id:string,
+  text?:string,
+  localId:string,
+  imageUrl?:string,
+  sender:UserType,
+  receiver:UserType,
+  receivedAt?:Date,
+  createdAt?:Date,
+  updatedAt?:Date,
+ 
+}
+export {AuthState,UserType,AuthStatusEnum,ThemeType,ThemeState,ColorShades,Theme ,MassageType }

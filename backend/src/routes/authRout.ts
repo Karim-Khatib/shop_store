@@ -3,7 +3,7 @@ import { Router } from "express";
 import { console } from "inspector/promises";
 import { generateToken, verifyToken } from "../config/jwt.config";
 import UserModel, { IUser } from "../model/user";
-import { ResponseType, UserType } from "../types/responseType";
+import { ResponseType } from "../types/types";
 
 const authRouter = Router();
 authRouter.use("/login", async (req, res) => {
@@ -112,7 +112,6 @@ authRouter.use("/checkUser", async (req, res) => {
   const { token } = req.body;
   try {
     const plain = verifyToken(token);
-    console.log({ plain });
     const data = plain as { email: string; userId: string } | undefined;
     if (!data) {
       const response: ResponseType = {

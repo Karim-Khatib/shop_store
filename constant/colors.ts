@@ -59,6 +59,7 @@ export const light:Theme = {
     700: "#FF8B00",
     800: "#FF7A00",
     900: "#FF6F00",
+    1000:"#E1FFC7"
   },
   alternative: {
     100: "#E6FCFF",
@@ -70,6 +71,7 @@ export const light:Theme = {
     700: "#00A3BF",
     800: "#008DA6",
     900: "#007A8C",
+    1000:"#DCF8C6"
   },
   primaryButton:{
     0:"#FFFFFF",
@@ -135,6 +137,7 @@ export const dark = {
     700: "#FF8B00",
     800: "#FF7A00",
     900: "#FF6F00",
+    1000:"#005C4B"
   },
   alternative: {
     100: "#E6FCFF",
@@ -146,6 +149,7 @@ export const dark = {
     700: "#00A3BF",
     800: "#008DA6",
     900: "#007A8C",
+    1000:"#1F2C2D"
   },
   primaryButton:{
     0:"#FFFFFF",

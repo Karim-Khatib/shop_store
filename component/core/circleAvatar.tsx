@@ -16,7 +16,6 @@ export default function CircleAvatar(props: CircleAvatarProps) {
   });
 
   const pickImage = useCallback(async () => {
-    console.log("pickImage");
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
       allowsEditing: true,

@@ -26,17 +26,13 @@ export const uploadFile = async (file: {
         "Content-Type": "multipart/form-data",
       },
     });
-      console.log({response})
 
     if (!response.data) {
       throw new Error("Upload failed");
     }
-    // console.log("✅ Upload success:", response.data);
     showSuccess("✅ Upload success:");
     return response.data;
   } catch (error) {
-    // console.error("❌ Upload error:", error);
-    console.log({error});
     showError("❌ Upload error:");
 
     const internalError: ResponseType = {

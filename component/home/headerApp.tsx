@@ -14,7 +14,6 @@ export default function HeaderApp() {
     return <></>;
   }
   const style = getStyle(currentTheme);
-  console.log({ user: authProvider.user });
   return (
     <View
       style={[
